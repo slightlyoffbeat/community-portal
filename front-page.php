@@ -40,26 +40,30 @@
 				</div>
 				</div>
 			</div>
+
+			<?php if(sizeof($fieldValues->featured_events) > 0): ?>
 			<div class="homepage__events">
 				<div class="homepage__events__background"></div>
 				<div class="row homepage__events__meta">
 					<div class="col-md-6 col-sm-12">
-						<h2 class="subheader homepage__events__subheader"><?php echo __($fieldValues->featured_events_title)?></h2>
+						<h2 class="subheader homepage__events__subheader"><?php echo $fieldValues->featured_events_title; ?></h2>
 					</div>
 					<div class="col-md-6 col-sm-12 homepage__events__cta">
-						<a href="/events" class="btn btn--small btn--dark"><?php echo __($fieldValues->featured_events_cta_text); ?></a>
+						<a href="/events" class="btn btn--small btn--dark"><?php echo $fieldValues->featured_events_cta_text; ?></a>
 					</div>
 				</div>
 				<div class="row homepage__events__grid">
 					<?php 
-						foreach($fieldValues->featured_events as $featured_event):
-							if($featured_event['single_event']) {
+						foreach($fieldValues->featured_events as $featured_event) {
+							if($featured_event['single_event'] ) {
 								$event = EM_Events::get(array('post_id' => $featured_event['single_event']->ID));
+								
 								$event = array_shift(array_values($event));
-					
-								include(locate_template('plugins/events-manager/templates/template-parts/single-event-card.php', false, false));
+
+								if($event !== null) 
+									include(locate_template('plugins/events-manager/templates/template-parts/single-event-card.php', false, false));
 							} 
-						endforeach;
+						}
 					?>
 					<div class="col-lg-4 col-md-6 events__column homepage__events__count">
 						<?php 
@@ -85,6 +89,7 @@
 					</div>
 				</div>
 			</div>
+			<?php endif; ?>
 			<?php if(sizeof($fieldValues->featured_groups) > 0): ?>
 			<div class="homepage__groups">
 				<div class="homepage__groups__background"></div>
@@ -103,6 +108,7 @@
 							$meta = groups_get_groupmeta($group->id, 'meta');
 							$member_count = groups_get_total_member_count($group->id);
 					?>
+					<?php if($group->id && $group->id > 0): ?>
 					<div class="col-lg-4 col-md-6 groups__column">
 						<a href="/groups/<?php print $group->slug; ?>/" class="groups__card groups__card--homepage">
 							<?php 
@@ -160,6 +166,7 @@
 							</div>
 						</a>
 					</div>
+					<?php endif; ?>
 					<?php endforeach; ?>
 					<div class="col-lg-4 col-md-6 events__column homepage__events__count">
 						<?php
