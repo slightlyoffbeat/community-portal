@@ -77,6 +77,7 @@
             $og_title = $options['default_open_graph_title'];
             $og_desc = $options['default_open_graph_desc'];
             $og_image = get_stylesheet_directory_uri()."/images/homepage-hero.jpg";    
+            $title = get_bloginfo('name')." - ".get_bloginfo('description');
         ?>
         <?php endif; ?>
 
