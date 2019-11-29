@@ -1229,7 +1229,7 @@ function mozilla_add_online_to_countries($countries) {
 }
 
 function mozilla_update_events_copy($string) {
-    $string = 'Please <a href="/wp-login.php?action=login">log in</a> to create or join events';
+    $string = 'Please <a href="/wp-login.php?action=login">log in/sign up</a> to create or join events';
     return $string;
 }; 
 
